@@ -16,9 +16,9 @@ fin = datetime("fin format : yyyy, mm, dd")
 def message_de_fin():
     mtn = datetime.now()
     jours = fin - mtn
-    if (jours.days > 0):
-        m = "Il reste " + str(jours.days) + " jours avant la fin du confinement."
-    elif (jours.days == 0):
+    if (jours.days > 1):
+        m = "Il reste " + str(jours.days + 1) + " jours avant la fin du confinement."
+    elif (jours.days == 1):
         m = "C'est le dernier jour du confinement." 
     else:
         m = "Le confinement est fini !"
