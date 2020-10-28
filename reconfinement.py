@@ -2,15 +2,15 @@ import discord, os, asyncio, schedule
 from datetime import date, time, datetime
 from discord.ext import commands
 
-TOKEN = 'Ton Token ici'
+TOKEN = 'Ton token ici'
 
 description = '''Le bot du reconfinement'''
 bot = commands.Bot(command_prefix='?')
 
 #Les Chans textuels ou ils faut envoyer les messages auto
-channels = ['']
+channels = ['tes channels ici']
 #La date de fin du confinement
-fin = datetime('END DATE yyyy, mm, dd')
+fin = datetime("fin format : yyyy, mm, dd")
 
 #La fonction qui creer un msg pour le confinement lié au weekend
 def message_du_weekend(commence):
@@ -96,10 +96,11 @@ async def timer(ctx):
 async def que_faire(ctx):
     """Vous indique la procdure à suivre"""
     jour = datetime.now().weekday()
-    if (jour != 6 or jour != 5):
-        await ctx.send("Va travailer connard !")
-    else:
+    mtn = datetime.strftime(datetime.now(),'%H:%M')
+    if ((mtn >= '19:00' and mtn <= '6:00' and jour >= 0 and jour <= 4) or jour == 5 or jour == 6 ):
         await ctx.send("Reste chez toi batard !")
+    else:   
+        await ctx.send("Va travailer connard !")
 
 bot.loop.create_task(confinement_weekend())
 bot.loop.create_task(couvre_feu())
