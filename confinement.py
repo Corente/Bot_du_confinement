@@ -13,6 +13,8 @@ channels = ['tes channels ici']
 fin = datetime("fin format : yyyy, mm, dd")
 #Le lien pour avoir l'attestation de sortie:
 attestation_link = "https://media.interieur.gouv.fr/deplacement-covid-19/"
+#Le lien pour acceder au code source
+github = "https://github.com/Corente/Bot_du_confinement"
 
 #Retourne le message de date avant la fin du confinement
 def message_de_fin():
@@ -62,6 +64,11 @@ async def attestation(ctx):
 async def que_faire(ctx):
     """Vous indique la procdure à suivre"""
     await ctx.send("Restez chez vous !")
+
+@bot.command()
+async def Credits(ctx):
+    """Lien du code source"""
+    await ctx.send(github)
 
 bot.loop.create_task(time_check())
 bot.run(TOKEN)
