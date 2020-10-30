@@ -11,6 +11,8 @@ bot = commands.Bot(command_prefix='?')
 channels = ['tes channels ici']
 #La date de fin du confinement
 fin = datetime("fin format : yyyy, mm, dd")
+#Le lien pour avoir l'attestation de sortie:
+attestation_link = "https://media.interieur.gouv.fr/deplacement-covid-19/"
 
 #La fonction qui creer un msg pour le confinement lié au weekend
 def message_du_weekend(commence):
@@ -101,6 +103,11 @@ async def que_faire(ctx):
         await ctx.send("Reste chez toi batard !")
     else:   
         await ctx.send("Va travailer connard !")
+
+@bot.command()
+async def attestation(ctx):
+    """Donne le lien pour l'attestation de deplacement"""
+    await ctx.send(attestation_link)
 
 bot.loop.create_task(confinement_weekend())
 bot.loop.create_task(couvre_feu())

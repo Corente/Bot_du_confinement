@@ -11,6 +11,8 @@ bot = commands.Bot(command_prefix='?')
 channels = ['tes channels ici']
 #La date de fin du confinement
 fin = datetime("fin format : yyyy, mm, dd")
+#Le lien pour avoir l'attestation de sortie:
+attestation_link = "https://media.interieur.gouv.fr/deplacement-covid-19/"
 
 #Retourne le message de date avant la fin du confinement
 def message_de_fin():
@@ -50,6 +52,11 @@ async def time_check():
 async def timer(ctx):
     """Affiche le temps restant en confinnement"""
     await ctx.send(message_de_fin())
+
+@bot.command()
+async def attestation(ctx):
+    """Donne le lien pour l'attestation de deplacement"""
+    await ctx.send(attestation_link)
 
 @bot.command()
 async def que_faire(ctx):
