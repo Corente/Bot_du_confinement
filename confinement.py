@@ -34,13 +34,15 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
+    await bot.change_presence(activity=discord.Game(name='mettre des amendes de 135 euros'))
+
 
 #Fonction qui envoit tt les jours a midi le nbre de jours avant la fin du confinement
 async def time_check():
     await bot.wait_until_ready()
     while not bot.is_closed():
         mtn = datetime.strftime(datetime.now(),'%H:%M')
-        if (mtn == '12:00'):
+        if (mtn == '15:02'):
             for i in channels:
                 sender = bot.get_channel(i)
                 m = message_de_fin()
@@ -64,6 +66,16 @@ async def attestation(ctx):
 async def que_faire(ctx):
     """Vous indique la procdure à suivre"""
     await ctx.send("Restez chez vous !")
+
+@bot.command()
+async def ajouter(ctx, message):
+    """Ajoute un channel textuel a la liste des chans pour le message du jour"""
+    try:
+        sender = bot.get_channel(int(message))
+        await sender.send("Le channel a été ajouté")
+        channels.append(int(message))
+    except :
+        await ctx.send("Le channel n'a pas été ajouté, l'id est faux")
 
 @bot.command()
 async def Credits(ctx):
