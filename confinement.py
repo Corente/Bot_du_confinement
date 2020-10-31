@@ -30,13 +30,12 @@ def message_de_fin():
 
 @bot.event
 async def on_ready():
+    await bot.change_presence(activity=discord.Game(name='mettre des amendes de 135 euros'))
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    await bot.change_presence(activity=discord.Game(name='mettre des amendes de 135 euros'))
-
-
+    
 #Fonction qui envoit tt les jours a midi le nbre de jours avant la fin du confinement
 async def time_check():
     await bot.wait_until_ready()
@@ -78,7 +77,7 @@ async def ajouter(ctx, message):
         await ctx.send("Le channel n'a pas été ajouté, l'id est faux")
 
 @bot.command()
-async def Credits(ctx):
+async def credits(ctx):
     """Lien du code source"""
     await ctx.send(github)
 
