@@ -39,41 +39,31 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-#La fonction qui envoit le message du confinement du weekend sur les channels
-async def confinement_weekend():
+#Envoie un message en fonctions du début du couvre feu ou du confinement du weekend
+async def daily_message():
     await bot.wait_until_ready()
     while not bot.is_closed():
         jour = datetime.now().weekday()
         heure = datetime.strftime(datetime.now(),'%H:%M')
-        if (jour == 4 and heure == '19:00'):
+        if (jour == 4 and heure == '21:00'):
             for i in channels:
                 sender = bot.get_channel(i)
                 m = message_du_weekend(True)
                 await sender.send(m)
             t = 90
-        elif (jour == 0 and heure == '6:00'):
+        elif (jour == 0 and heure == '7:00'):
             for i in channels:
                 sender = bot.get_channel(i)
                 m = message_du_weekend(False)
                 await sender.send(m)
             t = 90
-        else:
-            t = 1
-        await asyncio.sleep(t)
-
-#La fonction qui envoit le message du couvre feu sur les channels
-async def couvre_feu():
-    await bot.wait_until_ready()
-    while not bot.is_closed():
-        now = datetime.strftime(datetime.now(),'%H:%M')
-        jour = datetime.now().weekday()
-        if (now == '19:00' and jour != 6 and jour != 5 and jour != 4):
+        elif (jour != 5 and jour != 6 and heure == '21:00'):
             for i in channels:
                 sender = bot.get_channel(i)
                 m = message_du_couvre_feu(True)
                 await sender.send(m)
             t = 90
-        elif (now == '6:00' and jour != 0 and jour != 6 and jour != 5):
+        elif (jour != 5 and jour != 6 and heure == '7:00'):
             for i in channels:
                 sender = bot.get_channel(i)
                 m = message_du_couvre_feu(False)
@@ -89,11 +79,11 @@ async def timer(ctx):
     mtn = datetime.now()
     ret = fin - mtn
     if (ret.days > 0):
-        m = "Il reste " + str(ret.days) + " jours avant la des mesures sanitaires."
+        m = "Il reste " + str(ret.days + 1) + " jours avant la fin des mesures sanitaires."
     elif (ret.days == 0):
-        m = "C'est le dernier des mesures sanitaires." 
+        m = "C'est le dernier jour des mesures sanitaires." 
     else:
-        m = "des mesures sanitaires sont finis !"    
+        m = "Les mesures sanitaires sont finis !"    
     await ctx.send(m)
 
 @bot.command()
@@ -101,7 +91,7 @@ async def que_faire(ctx):
     """Vous indique la procdure à suivre"""
     jour = datetime.now().weekday()
     mtn = datetime.strftime(datetime.now(),'%H:%M')
-    if ((mtn >= '19:00' and mtn <= '6:00' and jour >= 0 and jour <= 4) or jour == 5 or jour == 6 ):
+    if ((mtn >= '21:00' and mtn <= '7:00' and jour >= 0 and jour <= 4) or jour == 5 or jour == 6 ):
         await ctx.send("Reste chez toi batard !")
     else:   
         await ctx.send("Va travailer connard !")
@@ -112,10 +102,19 @@ async def attestation(ctx):
     await ctx.send(attestation_link)
 
 @bot.command()
-async def Credits(ctx):
+async def ajouter(ctx, message):
+    """Ajoute un channel textuel a la liste des chans pour le message du jour"""
+    try:
+        sender = bot.get_channel(int(message))
+        await sender.send("Le channel a été ajouté")
+        channels.append(int(message))
+    except :
+        await ctx.send("Le channel n'a pas été ajouté, l'id est faux")
+
+@bot.command()
+async def credits(ctx):
     """Lien du code source"""
     await ctx.send(github)
 
-bot.loop.create_task(confinement_weekend())
-bot.loop.create_task(couvre_feu())
+bot.loop.create_task(daily_message())
 bot.run(TOKEN)

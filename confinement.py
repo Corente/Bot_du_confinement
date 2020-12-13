@@ -20,9 +20,9 @@ github = "https://github.com/Corente/Bot_du_confinement"
 def message_de_fin():
     mtn = datetime.now()
     jours = fin - mtn
-    if (jours.days > 1):
+    if (jours.days > 0):
         m = "Il reste " + str(jours.days + 1) + " jours avant la fin du confinement."
-    elif (jours.days == 1):
+    elif (jours.days == 0):
         m = "C'est le dernier jour du confinement." 
     else:
         m = "Le confinement est fini !"
