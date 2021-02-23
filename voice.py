@@ -3,7 +3,6 @@ from datetime import date, time, datetime
 from discord.ext import commands
 
 #Placer le token dans un fichier token.txt
-
 f = open("token.txt", "r")
 TOKEN = f.read()
 f.close()
@@ -13,8 +12,8 @@ bot = commands.Bot(command_prefix='?')
 
 #Les Chans textuels ou ils faut envoyer les messages auto
 channels = []
-#La date de fin du confinement
-fin = datetime(2080, 1, 1)
+#La date de fin du confinement format : yyyy, mm, dd
+fin = datetime(2999, 1, 1)
 #Le lien pour avoir l'attestation de sortie:
 attestation_link = "https://media.interieur.gouv.fr/deplacement-covid-19/"
 #Le lien pour acceder au code source
