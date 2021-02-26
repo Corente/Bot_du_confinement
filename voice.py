@@ -97,7 +97,7 @@ async def list_sound(ctx):
 
 @bot.command()
 async def sound(ctx, query):
-    """Viens jouer un son dans le channel vocal ou tu est"""
+    """Viens jouer un son dans le channel vocal ou tu es"""
     if ctx.message.author.voice != None:
         vc = await ctx.message.author.voice.channel.connect()
         source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(dico.get(query)))
