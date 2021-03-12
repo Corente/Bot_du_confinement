@@ -1,3 +1,4 @@
+sudo apt install python3-pip
 python3 -m pip install -U "discord.py[voice]"
 python3 -m pip install schedule
 python3 -m pip install PyNaCl
