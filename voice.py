@@ -13,7 +13,7 @@ bot = commands.Bot(command_prefix='?')
 #Les Chans textuels ou ils faut envoyer les messages auto
 channels = []
 #La date de fin du confinement format : yyyy, mm, dd
-fin = datetime(2999, 1, 1)
+fin = date(2999, 1, 1)
 #Le lien pour avoir l'attestation de sortie:
 attestation_link = "https://media.interieur.gouv.fr/deplacement-covid-19/"
 #Le lien pour acceder au code source
@@ -28,7 +28,7 @@ dico = {
 
 #Retourne le message de date avant la fin du confinement
 def message_de_fin():
-    mtn = datetime.now()
+    mtn = date.today()
     jours = fin - mtn
     if (jours.days > 0):
         m = "Il reste " + str(jours.days + 1) + " jours avant la fin du confinement."
